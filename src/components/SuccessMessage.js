@@ -2,13 +2,12 @@ import React from 'react';
 
 const SuccessMessage = () => {
   return (
-    <div className="text-center space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800">Oferta Criada com Sucesso!</h2>
-      <p className="text-gray-600">
-        Você receberá o link da sua proposta pelo WhatsApp.
-      </p>
-      <div className="bg-stripe-gray p-4 rounded-md">
-        <p className="text-lg text-green-600">Parabéns! Sua solicitação foi enviada.</p>
+    <div className="bg-white rounded-2xl shadow-xl p-6 max-w-md mx-auto h-[500px] flex flex-col justify-center">
+      <div className="text-center space-y-4">
+        <h2 className="text-lg font-bold text-gray-800">Oferta Criada com Sucesso!</h2>
+        <p className="text-gray-600 text-sm">
+          Em instantes, você receberá o link da sua proposta pelo WhatsApp!
+        </p>
       </div>
     </div>
   );

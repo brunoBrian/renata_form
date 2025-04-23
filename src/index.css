@@ -9,12 +9,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f6f9fc;
+  background-color: transparent; /* Remove o fundo gigante */
 }
 
 #root {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  padding: 20px; /* Adiciona um pequeno padding para evitar que o retângulo fique colado na borda da página */
 }

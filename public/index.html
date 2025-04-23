@@ -3,7 +3,36 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Formulário de Empréstimo FGTS</title>
+    <title>Forms Juca</title>
+    <script>
+      // Função para extrair parâmetros da query string
+      const params = new URLSearchParams(window.location.search);
+
+      // Extrai o host a partir do parent_url
+      let host = null;
+      const parentUrl = params.get('parent_url');
+      if (parentUrl) {
+        try {
+          const url = new URL(parentUrl);
+          host = url.hostname;
+        } catch (e) {
+          console.error('Erro ao parsear parent_url:', e);
+          host = null;
+        }
+      }
+
+      // Configura window.vemprojucaConfig com valores dinâmicos ou null
+      window.vemprojucaConfig = {
+        host: host,
+        userAgent: params.get('userAgent') || null,
+        cid: params.get('cid') || null,
+        sid: params.get('sid') || null,
+        fbp: params.get('fbp') || null,
+        partner_id: params.get('partner_id') || null,
+        name: params.get('name') || null,
+        avatar: params.get('avatar') || null
+      };
+    </script>
   </head>
   <body>
     <div id="root"></div>
