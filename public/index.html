@@ -12,14 +12,8 @@
       let host = null;
       const parentUrl = params.get('parent_url');
       if (parentUrl) {
-        try {
-          const url = new URL(parentUrl);
-          host = url.hostname;
-        } catch (e) {
-          console.error('Erro ao parsear parent_url:', e);
-          host = null;
-        }
-      }
+  host = parentUrl;   // sem parse, sem truncar
+}
 
       // Configura window.vemprojucaConfig com valores dinâmicos ou null
       window.vemprojucaConfig = {
