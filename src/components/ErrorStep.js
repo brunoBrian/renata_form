@@ -109,7 +109,7 @@ const ErrorStep = ({ error, onBack }) => {
           A Caixa (FGTS) está fora do ar no momento...
         </p>
         <p className="text-gray-600 text-sm">
-          Continuaremos tentando e avisaremos por WhatsApp!
+          Tente novamente!
         </p>
         <button
           onClick={() => onBack('1')}
