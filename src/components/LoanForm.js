@@ -1,6 +1,4 @@
-import ReCAPTCHA from "react-google-recaptcha";
-
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import InputMask from "react-input-mask";
 import SuccessMessage from "./SuccessMessage";
 import ErrorStep from "./ErrorStep";
@@ -10,8 +8,6 @@ import {
   createProposal,
   simulateProposal,
 } from "../services/api";
-
-const SITE_KEY = "SUA_CHAVE_DO_SITE"; // Troque pela sua chave
 
 /* ========== UF ↔ nome ========== */
 const ufToEstado = {
@@ -83,9 +79,6 @@ const formatPercentage = (value) => {
 };
 
 const LoanForm = () => {
-  const recaptchaRef = useRef(null);
-  const [captchaToken, setCaptchaToken] = useState(null);
-
   const [step, setStep] = useState("1");
   const [formData, setFormData] = useState({
     cpf: "",
@@ -152,17 +145,8 @@ const LoanForm = () => {
     return "";
   };
 
-  const handleStep1Submit = async (e) => {
+  const handleStep1Submit = (e) => {
     e.preventDefault();
-
-    const token = await recaptchaRef.current.executeAsync();
-    setCaptchaToken(token);
-
-    if (!token) {
-      alert("Por favor, confirme que você não é um robô.");
-      return;
-    }
-
     const msg = validateStep1();
     if (msg) {
       setError({ message: msg, code: "validation" });
@@ -1019,13 +1003,6 @@ const LoanForm = () => {
 
       {/* STEP 7 */}
       {step === "7" && <SuccessMessage />}
-
-      <ReCAPTCHA
-        ref={recaptchaRef}
-        sitekey={SITE_KEY}
-        size="invisible"
-        badge="bottomleft"
-      />
     </div>
   );
 };
