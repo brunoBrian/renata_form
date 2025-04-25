@@ -1,0 +1,53 @@
+version: 0.2
+env:
+  variables:
+    AWS_ACCOUNT_ID: 776040970523
+    AWS_REGION: us-east-1 # checkfor specific region
+    IMAGE_NAME: juca-renata-form-front # image name
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - echo "installing packages..."
+      - npm install --legacy-peer-deps
+      - echo "Packages installed successfully."
+  pre_build:
+    commands:
+      # Start daemon docker Thread
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay&
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+  build:
+    commands:
+      # Configuração do Docker Buildx
+      - echo "Iniciando configuração do Docker Buildx..."
+      - docker build -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_NAME:latest --push .
+      - echo image name =  $IMAGE_NAME:latest
+      - echo image url = $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_NAME:latest
+      - echo Writing image definitions file...
+      - printf '{"ImageURI":"'"$AWS_ACCOUNT_ID"'.dkr.ecr.'"$AWS_REGION"'.amazonaws.com/'"$IMAGE_NAME"':latest"}' > imageDetail.json
+      - cat imageDetail.json
+      - echo Build completed on `date`
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - "image*.json"
+    - "appspec.yaml"
+    - "taskdef.json"
+    - ".env.prd"
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.yaml
+        - taskdef.json
+        - .env.prd
+    ImageArtifact:
+      files:
+        - imageDetail.json

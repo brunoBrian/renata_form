@@ -1,0 +1,13 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: <TASK_DEFINITION>
+        LoadBalancerInfo:
+          ContainerName: juca-renata-form-front # copy from task definition under containerDefinitions.name
+          ContainerPort: 5000 # an application container port
+        CapacityProviderStrategy:
+          - CapacityProvider: Infra-ECS-Cluster-juca-renata-bot-front-c93bb229-AsgCapacityProvider-LeyvPiyx7Ovz
+            Base: 1
+            Weight: 1
