@@ -7,10 +7,10 @@ WORKDIR /opt/app
 
 COPY . /opt/app
 
-RUN yarn install --silent
+RUN yarn --silent
+RUN yarn build:prd
 
 ENV PORT 5000
-
 EXPOSE 5000
 
 CMD ["yarn", "start"]
