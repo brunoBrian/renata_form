@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import SuccessMessage from "./SuccessMessage";
 import ErrorStep from "./ErrorStep";
 import {
@@ -9,8 +9,10 @@ import {
   createProposal,
   simulateProposal,
 } from "../services/api";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import InputMask from "@mona-health/react-input-mask";
+import { verifyReCaptchaToken } from "@/utils/recaptcha";
 
 /* ========== UF ↔ nome ========== */
 const ufToEstado = {
@@ -82,6 +84,7 @@ const formatPercentage = (value) => {
 };
 
 const LoanForm = () => {
+  const recaptchaRef = useRef(null);
   const [step, setStep] = useState("1");
   const [formData, setFormData] = useState({
     cpf: "",
@@ -358,40 +361,63 @@ const LoanForm = () => {
       return;
     }
     setStep("6.1");
+
     try {
-      const data = await createProposal({
-        uuid,
-        parcelas: formData.parcelas,
-        nomeCompleto: formData.nomeCompleto,
-        cep: formData.cep,
-        numero: formData.numero,
-        uf: formData.uf,
-        cidade: formData.cidade,
-        bairro: formData.bairro,
-        rua: formData.rua,
-        agencia: formData.agencia,
-        conta: formData.conta,
-        digito: formData.digito,
-        tipoConta: formData.tipoConta,
-        banco: formData.banco,
-      });
-      if (data.status === "Success") {
-        setStep("7");
-      } else {
+      const token = await recaptchaRef.current.executeAsync();
+
+      if (!token) {
+        alert("Por favor, complete o reCAPTCHA.");
+        return;
+      }
+
+      const verification = await verifyReCaptchaToken(token);
+
+      if (!verification.success) {
+        alert("Falha na verificação do reCAPTCHA. Por favor, tente novamente.");
+        window.grecaptcha?.reset();
+        return;
+      }
+
+      try {
+        const data = await createProposal({
+          uuid,
+          parcelas: formData.parcelas,
+          nomeCompleto: formData.nomeCompleto,
+          cep: formData.cep,
+          numero: formData.numero,
+          uf: formData.uf,
+          cidade: formData.cidade,
+          bairro: formData.bairro,
+          rua: formData.rua,
+          agencia: formData.agencia,
+          conta: formData.conta,
+          digito: formData.digito,
+          tipoConta: formData.tipoConta,
+          banco: formData.banco,
+        });
+        if (data.status === "Success") {
+          setStep("7");
+        } else {
+          setError({
+            message:
+              "Ops, tivemos um erro na hora de subir sua proposta. Vamos continuar tentando por aqui e avisaremos por WhatsApp assim que tiver pronto!",
+            code: "api_error",
+          });
+          setStep("2.1");
+        }
+      } catch {
         setError({
           message:
             "Ops, tivemos um erro na hora de subir sua proposta. Vamos continuar tentando por aqui e avisaremos por WhatsApp assim que tiver pronto!",
-          code: "api_error",
+          code: "network",
         });
         setStep("2.1");
       }
-    } catch {
-      setError({
-        message:
-          "Ops, tivemos um erro na hora de subir sua proposta. Vamos continuar tentando por aqui e avisaremos por WhatsApp assim que tiver pronto!",
-        code: "network",
-      });
-      setStep("2.1");
+
+      form.reset();
+      window.grecaptcha?.reset();
+    } catch (error) {
+      console.error("Form submission error:", error);
     }
   };
 
@@ -1006,6 +1032,13 @@ const LoanForm = () => {
 
       {/* STEP 7 */}
       {step === "7" && <SuccessMessage />}
+
+      <ReCAPTCHA
+        ref={recaptchaRef}
+        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+        size="invisible"
+        badge="bottomleft"
+      />
     </div>
   );
 };
