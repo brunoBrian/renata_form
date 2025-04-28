@@ -16,7 +16,6 @@ Versao 7.1 - colocar os dados de host, sid/cid etc OK
 
 colocar retentativas de chamada api caixa
 
-
 iframe
 
 <div id="iframe-container"></div>

@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 
 const ErrorStep = ({ error, onBack }) => {
-  const { message } = error || { message: 'Erro desconhecido' };
+  const { message } = error || { message: "Erro desconhecido" };
 
   const normalizedMessage = message
-    ? message.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    : '';
+    ? message
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+    : "";
 
   const renderErrorContent = () => {
-    if (normalizedMessage.includes('cpf ja possui uma proposta em andamento')) {
+    if (normalizedMessage.includes("cpf ja possui uma proposta em andamento")) {
       return (
         <>
           <p className="text-red-500 font-medium text-sm">
@@ -18,8 +21,8 @@ const ErrorStep = ({ error, onBack }) => {
             Entre em contato pelo WhatsApp: 11 5199-4338. Vamos ajudar! :)
           </p>
           <button
-            onClick={() => onBack('1')}
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            onClick={() => onBack("1")}
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             OK
           </button>
@@ -27,7 +30,11 @@ const ErrorStep = ({ error, onBack }) => {
       );
     }
 
-    if (normalizedMessage.includes('cliente nao esta com adesao ao saque-aniversario')) {
+    if (
+      normalizedMessage.includes(
+        "cliente nao esta com adesao ao saque-aniversario"
+      )
+    ) {
       return (
         <>
           <p className="text-red-500 font-medium text-sm">
@@ -37,8 +44,8 @@ const ErrorStep = ({ error, onBack }) => {
             Após alterar para Saque Aniversário, tente novamente!
           </p>
           <button
-            onClick={() => onBack('1')}
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            onClick={() => onBack("1")}
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             OK
           </button>
@@ -46,7 +53,7 @@ const ErrorStep = ({ error, onBack }) => {
       );
     }
 
-    if (normalizedMessage.includes('cliente nao tem saldo suficiente')) {
+    if (normalizedMessage.includes("cliente nao tem saldo suficiente")) {
       return (
         <>
           <p className="text-red-500 font-medium text-sm">
@@ -56,8 +63,8 @@ const ErrorStep = ({ error, onBack }) => {
             A partir do próximo dia 20, podemos tentar novamente!
           </p>
           <button
-            onClick={() => onBack('1')}
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            onClick={() => onBack("1")}
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             OK
           </button>
@@ -65,7 +72,7 @@ const ErrorStep = ({ error, onBack }) => {
       );
     }
 
-    if (normalizedMessage.includes('cliente nao autorizou consultar saldo')) {
+    if (normalizedMessage.includes("cliente nao autorizou consultar saldo")) {
       return (
         <>
           <p className="text-red-500 font-medium text-sm">
@@ -75,8 +82,8 @@ const ErrorStep = ({ error, onBack }) => {
             Acesse o app do FGTS e autorize a consulta do banco BMP.
           </p>
           <button
-            onClick={() => onBack('2')}
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            onClick={() => onBack("2")}
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             Tentar novamente
           </button>
@@ -84,7 +91,11 @@ const ErrorStep = ({ error, onBack }) => {
       );
     }
 
-    if (normalizedMessage.includes('ops, tivemos um erro na hora de subir sua proposta')) {
+    if (
+      normalizedMessage.includes(
+        "ops, tivemos um erro na hora de subir sua proposta"
+      )
+    ) {
       return (
         <>
           <p className="text-red-500 font-medium text-sm">
@@ -94,8 +105,8 @@ const ErrorStep = ({ error, onBack }) => {
             Vamos continuar tentando e avisaremos por WhatsApp!
           </p>
           <button
-            onClick={() => onBack('1')}
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            onClick={() => onBack("1")}
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             OK
           </button>
@@ -108,12 +119,10 @@ const ErrorStep = ({ error, onBack }) => {
         <p className="text-red-500 font-medium text-sm">
           A Caixa (FGTS) está fora do ar no momento...
         </p>
-        <p className="text-gray-600 text-sm">
-          Tente novamente!
-        </p>
+        <p className="text-gray-600 text-sm">Tente novamente!</p>
         <button
-          onClick={() => onBack('1')}
-          className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+          onClick={() => onBack("1")}
+          className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
         >
           OK
         </button>
@@ -122,7 +131,7 @@ const ErrorStep = ({ error, onBack }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-6 max-w-md mx-auto h-[500px] flex flex-col justify-center">
+    <div className="bg-white rounded-2xl p-6 max-w-md mx-auto h-[500px] flex flex-col justify-center">
       <div className="step-container space-y-4 text-center">
         <h2 className="text-lg font-bold text-gray-800">Erro na Consulta</h2>
         {renderErrorContent()}

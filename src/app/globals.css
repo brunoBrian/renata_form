@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: transparent; /* Remove o fundo gigante */
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Adiciona um pequeno padding para evitar que o retângulo fique colado na borda da página */
+}
+
+.app-container {
+  display: flex;
+  width: 400px; /* Largura fixa */
+  justify-content: center;
+}
+
+/* Garante que o LoanForm respeite o container */
+.app-container > * {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}

@@ -1,5 +1,6 @@
+"use client";
+
 import React, { useState } from "react";
-import InputMask from "react-input-mask";
 import SuccessMessage from "./SuccessMessage";
 import ErrorStep from "./ErrorStep";
 import {
@@ -8,6 +9,8 @@ import {
   createProposal,
   simulateProposal,
 } from "../services/api";
+
+import InputMask from "@mona-health/react-input-mask";
 
 /* ========== UF ↔ nome ========== */
 const ufToEstado = {
@@ -444,8 +447,8 @@ const LoanForm = () => {
               name="cpf"
               value={formData.cpf}
               onChange={handleInputChange}
-              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
-              placeholder="123.456.789.00"
+              className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
+              placeholder="123.456.789-00"
             />
           </div>
           <div>
@@ -457,7 +460,7 @@ const LoanForm = () => {
               name="dataNascimento"
               value={formData.dataNascimento}
               onChange={handleInputChange}
-              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+              className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
               placeholder="DD/MM/AAAA"
             />
           </div>
@@ -470,13 +473,13 @@ const LoanForm = () => {
               name="celular"
               value={formData.celular}
               onChange={handleInputChange}
-              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+              className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
               placeholder="(XX) 9XXXX-XXXX"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             Simular!
           </button>
@@ -505,11 +508,11 @@ const LoanForm = () => {
               alt="Instruções FGTS"
               className="mx-auto w-32 h-32 object-cover rounded-md"
             />
-            <p className="text-xs text-stripe-blue">Clique para visualizar</p>
+            <p className="text-xs text-[#635bff]">Clique para visualizar</p>
           </div>
           <button
             onClick={handleFgtsAuthorization}
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             Quando autorizar, clique em OK
           </button>
@@ -533,7 +536,7 @@ const LoanForm = () => {
             />
             <button
               onClick={closeLightbox}
-              className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+              className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
             >
               Fechar
             </button>
@@ -545,7 +548,7 @@ const LoanForm = () => {
       {step === "3" && (
         <div className="step-container space-y-4 text-center animate-pulse flex flex-col justify-center items-center">
           <svg
-            className="animate-spin h-10 w-10 text-stripe-blue mx-auto"
+            className="animate-spin h-10 w-10 text-[#635bff] mx-auto"
             viewBox="0 0 24 24"
           >
             <circle
@@ -572,7 +575,7 @@ const LoanForm = () => {
       {step === "6.1" && (
         <div className="step-container space-y-4 text-center animate-pulse flex flex-col justify-center items-center">
           <svg
-            className="animate-spin h-10 w-10 text-stripe-blue mx-auto"
+            className="animate-spin h-10 w-10 text-[#635bff] mx-auto"
             viewBox="0 0 24 24"
           >
             <circle
@@ -604,7 +607,7 @@ const LoanForm = () => {
             <h2 className="text-lg font-bold text-center text-gray-800">
               Sua Simulação
             </h2>
-            <div className="bg-stripe-gray p-3 rounded-md text-center space-y-1">
+            <div className="bg-[#f6f9fc] p-3 rounded-md text-center space-y-1">
               <p className="text-base font-medium">Valor a receber no PIX</p>
               <p className="text-lg font-bold text-gray-800">
                 R$ {formatCurrency(apiResponse.Simulacao.VlrLiberado)}
@@ -617,7 +620,7 @@ const LoanForm = () => {
                   name="parcelas"
                   value={formData.parcelas}
                   onChange={(e) => handleParcelasChange(e.target.value)}
-                  className="block w-20 mx-auto border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue text-sm text-center"
+                  className="block w-20 mx-auto border-gray-300 rounded-md border focus:ring-[#635bff] focus:border-[#635bff] text-sm text-center"
                 >
                   {[...Array(9)].map((_, i) => {
                     const num = i + 2;
@@ -661,7 +664,7 @@ const LoanForm = () => {
                   name="nomeCompleto"
                   value={formData.nomeCompleto}
                   onChange={handleInputChange}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                  className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                   placeholder="Nome completo"
                 />
               </div>
@@ -674,13 +677,13 @@ const LoanForm = () => {
                   name="cep"
                   value={formData.cep}
                   onChange={handleInputChange}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                  className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                   placeholder="12345-678"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+                className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
               >
                 Seguir
               </button>
@@ -806,7 +809,7 @@ const LoanForm = () => {
             </div>
             <button
               onClick={closeDetailsLightbox}
-              className="w-full bg-stripe-blue text-white py-1 rounded-md hover:bg-opacity-90 transition text-sm"
+              className="w-full bg-[#635bff] text-white py-1 rounded-md hover:bg-opacity-90 transition text-sm"
             >
               OK
             </button>
@@ -831,7 +834,7 @@ const LoanForm = () => {
                 name="cep"
                 value={formData.cep}
                 onChange={handleInputChange}
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                 placeholder="CEP"
               />
             </div>
@@ -843,7 +846,7 @@ const LoanForm = () => {
                 name="cidade"
                 value={formData.cidade}
                 onChange={handleInputChange}
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                 placeholder="Cidade"
               />
             </div>
@@ -855,7 +858,7 @@ const LoanForm = () => {
                 name="uf"
                 value={formData.uf}
                 onChange={handleInputChange}
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
               >
                 <option value="">Selecione</option>
                 {ufCodes.map((u) => (
@@ -873,7 +876,7 @@ const LoanForm = () => {
                 name="bairro"
                 value={formData.bairro}
                 onChange={handleInputChange}
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                 placeholder="Bairro"
               />
             </div>
@@ -885,7 +888,7 @@ const LoanForm = () => {
                 name="rua"
                 value={formData.rua}
                 onChange={handleInputChange}
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                 placeholder="Rua"
               />
             </div>
@@ -897,7 +900,7 @@ const LoanForm = () => {
                 name="numero"
                 value={formData.numero}
                 onChange={handleInputChange}
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                 placeholder="Só números"
                 inputMode="numeric"
                 pattern="\d*"
@@ -906,7 +909,7 @@ const LoanForm = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             Seguir
           </button>
@@ -926,7 +929,7 @@ const LoanForm = () => {
               name="banco"
               value={formData.banco}
               onChange={handleInputChange}
-              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+              className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
             >
               <option value="">Selecione</option>
               {banks.map(([label, val]) => (
@@ -945,7 +948,7 @@ const LoanForm = () => {
                 name="agencia"
                 value={formData.agencia}
                 onChange={handleInputChange}
-                className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                 placeholder="0001"
               />
             </div>
@@ -958,7 +961,7 @@ const LoanForm = () => {
                   name="conta"
                   value={formData.conta}
                   onChange={handleInputChange}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                  className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                   placeholder="123456"
                 />
               </div>
@@ -970,7 +973,7 @@ const LoanForm = () => {
                   name="digito"
                   value={formData.digito}
                   onChange={handleInputChange}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+                  className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
                   placeholder="7"
                   inputMode="numeric"
                   pattern="\d*"
@@ -986,7 +989,7 @@ const LoanForm = () => {
               name="tipoConta"
               value={formData.tipoConta}
               onChange={handleInputChange}
-              className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-stripe-blue focus:border-stripe-blue"
+              className="block w-full border-gray-300 rounded-md px-2 py-1 border focus:ring-[#635bff] focus:border-[#635bff]"
             >
               <option value="Checking">Conta Corrente</option>
               <option value="Savings">Conta Salário</option>
@@ -994,7 +997,7 @@ const LoanForm = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-stripe-blue text-white py-2 rounded-md hover:bg-opacity-90 transition"
+            className="w-full bg-[#635bff] text-white py-2 rounded-md hover:bg-opacity-90 transition"
           >
             Enviar Proposta
           </button>
